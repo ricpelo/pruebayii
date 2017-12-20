@@ -18,8 +18,8 @@ class PeliculasSearch extends Peliculas
     public function rules()
     {
         return [
-            [['id', 'duracion', 'genero_id'], 'integer'],
-            [['titulo', 'sinopsis'], 'safe'],
+            [['id', 'duracion'], 'integer'],
+            [['titulo', 'sinopsis', 'genero_id'], 'safe'],
             [['anyo'], 'number'],
         ];
     }
@@ -58,16 +58,18 @@ class PeliculasSearch extends Peliculas
             return $dataProvider;
         }
 
+        $query->joinWith('genero');
+        
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'anyo' => $this->anyo,
             'duracion' => $this->duracion,
-            'genero_id' => $this->genero_id,
         ]);
 
-        $query->andFilterWhere(['like', 'titulo', $this->titulo])
-            ->andFilterWhere(['like', 'sinopsis', $this->sinopsis]);
+        $query->andFilterWhere(['ilike', 'titulo', $this->titulo])
+            ->andFilterWhere(['ilike', 'sinopsis', $this->sinopsis])
+            ->andFilterWhere(['ilike', 'genero', $this->genero_id]);
 
         return $dataProvider;
     }
