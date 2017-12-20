@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Generos */
+/* @var $model app\models\Peliculas */
 
-$this->title = $model->genero;
-$this->params['breadcrumbs'][] = ['label' => 'Generos', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Peliculas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="generos-view">
+<div class="peliculas-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -28,7 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'genero',
+            'id',
+            'titulo',
+            'anyo',
+            'sinopsis:ntext',
+            'duracion',
+            'genero_id',
         ],
     ]) ?>
 
